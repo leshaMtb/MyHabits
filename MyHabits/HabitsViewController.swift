@@ -14,14 +14,11 @@ class HabitsViewController: UIViewController {
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
         
         // Удалить все привычки
         // HabitsStore.shared.habits.removeAll()

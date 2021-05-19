@@ -14,6 +14,7 @@ protocol ProtocolForCallFromCorrectToDetail {
 
 class HabitDetailsViewController: UIViewController {
     
+   
     var callFromDetailToHabits: TestDelegate?
     
     private lazy var habitDetailTableView: UITableView = {
@@ -45,6 +46,8 @@ class HabitDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         correctHabitVC.delegateCorrectVC = self
         
         view.backgroundColor = .systemGray6
@@ -66,9 +69,7 @@ class HabitDetailsViewController: UIViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.prefersLargeTitles = false
-    }
+   
     
     
     @objc func correctHabit() {
