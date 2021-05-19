@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		184195A7263FF76B0079AA90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184195A6263FF76B0079AA90 /* AppDelegate.swift */; };
 		184195A9263FF76B0079AA90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184195A8263FF76B0079AA90 /* SceneDelegate.swift */; };
-		184195AB263FF76B0079AA90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184195AA263FF76B0079AA90 /* ViewController.swift */; };
 		184195AE263FF76B0079AA90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184195AC263FF76B0079AA90 /* Main.storyboard */; };
 		184195B0263FF76C0079AA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184195AF263FF76C0079AA90 /* Assets.xcassets */; };
 		184195B3263FF76C0079AA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184195B1263FF76C0079AA90 /* LaunchScreen.storyboard */; };
@@ -19,7 +18,7 @@
 		184637F72646AB9C00B8082F /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637F62646AB9C00B8082F /* HabitViewController.swift */; };
 		184637FE264BDE4A00B8082F /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637FD264BDE4A00B8082F /* HabitCollectionViewCell.swift */; };
 		186A8DDA26500D0400A8AA0C /* CorrectHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A8DD926500D0400A8AA0C /* CorrectHabitViewController.swift */; };
-		186A8DDD2652ED6400A8AA0C /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A8DDC2652ED6400A8AA0C /* ProgressCell.swift */; };
+		186A8DDD2652ED6400A8AA0C /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A8DDC2652ED6400A8AA0C /* ProgressCollectionViewCell.swift */; };
 		188CC070264E9EE600ECFECE /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CC06F264E9EE600ECFECE /* HabitDetailsViewController.swift */; };
 		188CC074264E9F6B00ECFECE /* HabitDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CC073264E9F6B00ECFECE /* HabitDetailHeader.swift */; };
 		188CC077264E9F9500ECFECE /* HabitDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CC076264E9F9500ECFECE /* HabitDetailViewCell.swift */; };
@@ -29,7 +28,6 @@
 		184195A3263FF76B0079AA90 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184195A6263FF76B0079AA90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		184195A8263FF76B0079AA90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		184195AA263FF76B0079AA90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		184195AD263FF76B0079AA90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		184195AF263FF76C0079AA90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		184195B2263FF76C0079AA90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -40,7 +38,7 @@
 		184637F62646AB9C00B8082F /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		184637FD264BDE4A00B8082F /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		186A8DD926500D0400A8AA0C /* CorrectHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectHabitViewController.swift; sourceTree = "<group>"; };
-		186A8DDC2652ED6400A8AA0C /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
+		186A8DDC2652ED6400A8AA0C /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
 		186A8DDF2653EAF600A8AA0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		188CC06F264E9EE600ECFECE /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
 		188CC073264E9F6B00ECFECE /* HabitDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailHeader.swift; sourceTree = "<group>"; };
@@ -80,13 +78,12 @@
 			children = (
 				184195A6263FF76B0079AA90 /* AppDelegate.swift */,
 				184195A8263FF76B0079AA90 /* SceneDelegate.swift */,
-				184195AA263FF76B0079AA90 /* ViewController.swift */,
 				184195AC263FF76B0079AA90 /* Main.storyboard */,
 				184195BF2642C5730079AA90 /* InfoViewController.swift */,
 				184637F62646AB9C00B8082F /* HabitViewController.swift */,
 				184195C52643E6430079AA90 /* HabitsViewController.swift */,
 				184637FD264BDE4A00B8082F /* HabitCollectionViewCell.swift */,
-				186A8DDC2652ED6400A8AA0C /* ProgressCell.swift */,
+				186A8DDC2652ED6400A8AA0C /* ProgressCollectionViewCell.swift */,
 				188CC06E264E9EBE00ECFECE /* HabitDetail */,
 				184195AF263FF76C0079AA90 /* Assets.xcassets */,
 				184195B1263FF76C0079AA90 /* LaunchScreen.storyboard */,
@@ -178,10 +175,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				188CC074264E9F6B00ECFECE /* HabitDetailHeader.swift in Sources */,
-				184195AB263FF76B0079AA90 /* ViewController.swift in Sources */,
 				184195C62643E6430079AA90 /* HabitsViewController.swift in Sources */,
 				184637F72646AB9C00B8082F /* HabitViewController.swift in Sources */,
-				186A8DDD2652ED6400A8AA0C /* ProgressCell.swift in Sources */,
+				186A8DDD2652ED6400A8AA0C /* ProgressCollectionViewCell.swift in Sources */,
 				186A8DDA26500D0400A8AA0C /* CorrectHabitViewController.swift in Sources */,
 				184195A7263FF76B0079AA90 /* AppDelegate.swift in Sources */,
 				188CC077264E9F9500ECFECE /* HabitDetailViewCell.swift in Sources */,

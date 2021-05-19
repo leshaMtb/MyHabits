@@ -7,15 +7,15 @@
 
 import UIKit
 
-class HabitDetailHeader: UITableViewHeaderFooterView {
 
-   
+class HabitDetailHeader: UITableViewHeaderFooterView {
+    
     var titleLabel: String? {
         didSet {
             habitActivityLabel.text = titleLabel
-            
         }
     }
+    
     let habitActivityLabel: UILabel = {
         let activity = UILabel()
         activity.translatesAutoresizingMaskIntoConstraints = false
@@ -25,16 +25,20 @@ class HabitDetailHeader: UITableViewHeaderFooterView {
         return activity
     }()
     
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupViews()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     func setupViews() {
-       
+        
         contentView.backgroundColor = .systemGray6
         contentView.addSubview(habitActivityLabel)
         
@@ -44,11 +48,6 @@ class HabitDetailHeader: UITableViewHeaderFooterView {
             habitActivityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             habitActivityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
         ]
-        
         NSLayoutConstraint.activate(constraints)
-        
-        
     }
-
-
 }

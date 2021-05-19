@@ -12,13 +12,12 @@ protocol TestDelegate: class {
 }
 
 
-//в этом контроллере по кнопке "сохранить" в методе saveBarButton нужно вызвать обновление коллекции
 class HabitViewController: UIViewController {
-  
-   weak var delegate1: TestDelegate?
+    
+    weak var delegate1: TestDelegate?
     
     let scrollView = UIScrollView()
- 
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +27,7 @@ class HabitViewController: UIViewController {
         label.numberOfLines = 1
         return label
     }()
+    
     
     private let textInput: UITextField = {
         let input = UITextField()
@@ -39,6 +39,7 @@ class HabitViewController: UIViewController {
         return input
     }()
     
+    
     private let colorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +48,7 @@ class HabitViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 13)
         return label
     }()
+    
     
     private let colorButton: UIButton = {
         let button = UIButton(type: .system)
@@ -57,6 +59,8 @@ class HabitViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    
+    
     private let timeLabel: UILabel = {
         let time = UILabel()
         time.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +70,7 @@ class HabitViewController: UIViewController {
         return time
     }()
     
+    
     private let dateText: UILabel = {
         let date = UILabel()
         date.text =   "Каждый день в "
@@ -74,6 +79,7 @@ class HabitViewController: UIViewController {
         date.textColor = .black
         return date
     }()
+    
     
     let txtDatePicker: UITextField = {
         let txtdata = UITextField()
@@ -97,10 +103,14 @@ class HabitViewController: UIViewController {
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(doDatePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelDatePicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
         
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelDatePicker))
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        cancelButton.tintColor = .purple
+        doneButton.tintColor = .purple
         txtDatePicker.inputAccessoryView = toolbar
         txtDatePicker.inputView = datePicker
     }
@@ -132,6 +142,7 @@ class HabitViewController: UIViewController {
         scrollView.addSubview(dateText)
         scrollView.addSubview(txtDatePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        
         
         let constraints = [
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -174,22 +185,30 @@ class HabitViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         view.backgroundColor = .white
         setupViews()
         showDatePicker()
         
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
         scrollView.addSubview(navBar)
+        
         let navItem = UINavigationItem(title: "Создать")
+        
         let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButton))
+        
         navItem.rightBarButtonItem = saveItem
+        
         let cancelItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancelBarButton))
+        
         navItem.leftBarButtonItem = cancelItem
         navBar.setItems([navItem], animated: false)
+        
+        saveItem.tintColor = .purple
+        cancelItem.tintColor = .purple
     }
     
     
@@ -201,11 +220,10 @@ class HabitViewController: UIViewController {
         let store = HabitsStore.shared
         store.habits.append(newHabit)
         reloadInputViews()
-      
+        
         dismiss(animated: true) { [weak self] in
-        print("чекаем self?.delegate1?.updCollection()")
-        print(self?.delegate1?.updCollection())
-     //ЗДЕСЬ Я ДОЛЖЕН ОБРАТИТЬСЯ К ДЕЛЕГАТУ И ВЫЗВАТЬ collectionView.reloadData()
+            print("обратился к self?.delegate1?.updCollection()\(self?.delegate1?.updCollection())")
+            // функционал .updCollection: collectionView.reloadData()
             self?.delegate1?.updCollection()
         }
     }
@@ -225,9 +243,6 @@ class HabitViewController: UIViewController {
         picker.delegate = self
     }
 }
-
-
-
 
 
 extension HabitViewController: UIColorPickerViewControllerDelegate {

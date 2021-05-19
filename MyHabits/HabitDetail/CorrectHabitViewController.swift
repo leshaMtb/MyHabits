@@ -7,14 +7,15 @@
 
 import UIKit
 
-class CorrectHabitViewController: UIViewController {
 
-   
+class CorrectHabitViewController: UIViewController {
+    
     var delegateCorrectVC: ProtocolForCallFromCorrectToDetail?
     
-   
     let scrollView = UIScrollView()
+    
     public var habit: Habit
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +114,9 @@ class CorrectHabitViewController: UIViewController {
         
         txtDatePicker.inputAccessoryView = toolbar
         txtDatePicker.inputView = datePicker
+        
+        cancelButton.tintColor = .purple
+        doneButton.tintColor = .purple
     }
     
     
@@ -124,23 +128,23 @@ class CorrectHabitViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    
-    
+
     @objc func cancelDatePicker(){
         self.view.endEditing(true)
     }
     
     
     @objc func showAlert(_ sender: Any) {
+        
         let alertController = UIAlertController(title: "Удалить привычку?", message: "Вы хотите удалить привычку \(habit.name)?", preferredStyle: .alert)
+        
         let cancelAction = UIAlertAction(title: "Отмена", style: .default) { _ in
             print("Отмена")
         }
+        
         let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { _ in
-            
-             if let oldHabit = HabitsStore.shared.habits.firstIndex(where: ({ $0.name == self.habit.name })) {
-               HabitsStore.shared.habits.remove(at: oldHabit )
-                
+            if let oldHabit = HabitsStore.shared.habits.firstIndex(where: ({ $0.name == self.habit.name })) {
+                HabitsStore.shared.habits.remove(at: oldHabit )
             }
             
             self.dismiss(animated: true) { [weak self] in
@@ -151,6 +155,8 @@ class CorrectHabitViewController: UIViewController {
         alertController.addAction(deleteAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    
     func setupViews() {
         print(#function)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -215,13 +221,13 @@ class CorrectHabitViewController: UIViewController {
         let picker = UIColorPickerViewController()
         self.present(picker, animated: true, completion: nil)
         picker.selectedColor = colorButton.backgroundColor!
-              picker.delegate = self
+        picker.delegate = self
     }
     
+    
     override func viewDidLoad() {
-        
-      
         super.viewDidLoad()
+        
         scrollView.backgroundColor = .white
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
         scrollView.addSubview(navBar)
@@ -236,6 +242,9 @@ class CorrectHabitViewController: UIViewController {
         textInput.text = habit.name
         textInput.textColor = habit.color
         colorButton.backgroundColor = habit.color
+        
+        saveItem.tintColor = .purple
+        cancelItem.tintColor = .purple
     }
     
     
@@ -247,10 +256,9 @@ class CorrectHabitViewController: UIViewController {
         if let index = HabitsStore.shared.habits.firstIndex(where: { $0 == self.habit }) {
             HabitsStore.shared.habits[index] = newHabit
         }
+        
         dismiss(animated: true) { [weak self] in
-         //   self?.onReloadDataAfterDelete?()
-            
-            print(" ЗВОНИМ self?.delegateTest3?.callFromCorrectToDetail()")
+            print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
             print(self?.delegateCorrectVC?.callFromCorrectToDetail())
             self?.delegateCorrectVC?.callFromCorrectToDetail()
         }

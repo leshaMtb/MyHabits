@@ -9,10 +9,6 @@ import UIKit
 
 class ProgressCell: UICollectionViewCell {
     
-    
-    
-    
-    
     let progressText: UILabel = {
         let progressText = UILabel()
         progressText.text = "Все получится!"
@@ -20,7 +16,6 @@ class ProgressCell: UICollectionViewCell {
         progressText.translatesAutoresizingMaskIntoConstraints = false
         return progressText
     }()
-    
     
     
     let progressPercentLabel: UILabel = {
@@ -51,28 +46,22 @@ class ProgressCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 8
         
         NSLayoutConstraint.activate([
-     
+            
             progressText.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             progressText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             progressText.bottomAnchor.constraint(equalTo: progressLine.topAnchor, constant: -10),
-                       
+            
             progressPercentLabel.topAnchor.constraint(equalTo: progressText.topAnchor),
             progressPercentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             progressPercentLabel.widthAnchor.constraint(equalToConstant: 40),
             progressPercentLabel.heightAnchor.constraint(equalToConstant: 20),
-                       
+            
             progressLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             progressLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             progressLine.heightAnchor.constraint(equalToConstant: 7)
-            
-            
         ])
-        
-        
-        
-        
-        
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -80,4 +69,4 @@ class ProgressCell: UICollectionViewCell {
     
 }
 
- 
+

@@ -27,7 +27,7 @@
                                 <rect key="frame" x="170.5" y="799" width="73" height="21"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.92627507448196411" green="0.66753846406936646" blue="0.92745339870452881" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.52046430110931396" green="0.018657837063074112" blue="0.98838919401168823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
