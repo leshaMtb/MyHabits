@@ -29,8 +29,7 @@ class HabitDetailsViewController: UIViewController {
     
     
     private lazy var correctHabitVC = CorrectHabitViewController(habit: habit)
-    
-    
+
     let habit: Habit
     init(habit: Habit) {
         self.habit = habit

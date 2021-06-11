@@ -222,7 +222,7 @@ class HabitViewController: UIViewController {
         reloadInputViews()
         
         dismiss(animated: true) { [weak self] in
-            print("обратился к self?.delegate1?.updCollection()\(self?.delegate1?.updCollection())")
+            // print("обратился к self?.delegate1?.updCollection()\(self?.delegate1?.updCollection())")
             // функционал .updCollection: collectionView.reloadData()
             self?.delegate1?.updCollection()
         }

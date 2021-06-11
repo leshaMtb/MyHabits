@@ -16,6 +16,17 @@ class CorrectHabitViewController: UIViewController {
     
     public var habit: Habit
     
+    init(habit: Habit) {
+        self.habit = habit
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -87,17 +98,7 @@ class CorrectHabitViewController: UIViewController {
         return delete
     }()
     
-    
-    init(habit: Habit) {
-        self.habit = habit
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
+  
     func showDatePicker() {
         datePicker.datePickerMode = .time
         txtDatePicker.inputView = datePicker
