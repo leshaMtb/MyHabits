@@ -16,6 +16,9 @@ class HabitsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+       // title = "Привычки"
+       tabBarItem.image = UIImage(systemName: "house")
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
@@ -44,6 +47,9 @@ class HabitsViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItem?.tintColor = .purple
+
+        
+
         navigationController?.navigationBar.prefersLargeTitles = true
         collectionView.backgroundColor = .systemGray6
         //navigationItem.backButtonTitle.tin

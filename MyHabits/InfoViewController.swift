@@ -47,6 +47,7 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Информация"
+        view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(habitHeadline)
