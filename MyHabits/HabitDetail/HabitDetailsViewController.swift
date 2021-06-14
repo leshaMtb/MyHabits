@@ -28,7 +28,7 @@ class HabitDetailsViewController: UIViewController {
     }()
     
     
-    private lazy var correctHabitVC = CorrectHabitViewController(habit: habit)
+    private lazy var correctHabitVC = CorrectHabitViewController(habit: habit, openForCreateNewHabit: false)
 
     let habit: Habit
     init(habit: Habit) {
@@ -94,7 +94,9 @@ extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: HabitDetailViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HabitDetailViewCell.self)) as! HabitDetailViewCell
-        
+//let cell = HabitDetailViewCell()
+
+
         cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: HabitsStore.shared.dates.count - 1 - indexPath.item)
         
         if HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[HabitsStore.shared.dates.count - 1 - indexPath.item]) == true {

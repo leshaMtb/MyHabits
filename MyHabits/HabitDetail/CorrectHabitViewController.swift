@@ -9,15 +9,20 @@ import UIKit
 
 
 class CorrectHabitViewController: UIViewController {
-    
+
+    weak var delegate1: TestDelegate?
+
     var delegateCorrectVC: ProtocolForCallFromCorrectToDetail?
     
     let scrollView = UIScrollView()
     
     public var habit: Habit
+
+    public var openForCreateNewHabit: Bool
     
-    init(habit: Habit) {
+    init(habit: Habit, openForCreateNewHabit: Bool) {
         self.habit = habit
+        self.openForCreateNewHabit = openForCreateNewHabit
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -228,28 +233,53 @@ class CorrectHabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        print(openForCreateNewHabit)
+
+
         scrollView.backgroundColor = .white
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
         scrollView.addSubview(navBar)
-        let navItem = UINavigationItem(title: "Править")
-        let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButton))
-        navItem.rightBarButtonItem = saveItem
-        let cancelItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancelBarButton))
-        navItem.leftBarButtonItem = cancelItem
-        navBar.setItems([navItem], animated: false)
+
+
+        if openForCreateNewHabit == true {
+
+            let navItem = UINavigationItem(title: "Создать")
+            let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButtonForCreateNewHabit))
+            navItem.rightBarButtonItem = saveItem
+            saveItem.tintColor = .purple
+            deleteButton.isHidden = true
+            let cancelItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancelBarButton))
+            navItem.leftBarButtonItem = cancelItem
+            navBar.setItems([navItem], animated: false)
+            cancelItem.tintColor = .purple
+
+        } else {
+
+            let navItem = UINavigationItem(title: "Править")
+            let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButton))
+            navItem.rightBarButtonItem = saveItem
+            saveItem.tintColor = .purple
+            let cancelItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancelBarButton))
+            navItem.leftBarButtonItem = cancelItem
+            navBar.setItems([navItem], animated: false)
+            cancelItem.tintColor = .purple
+        }
+
+
         setupViews()
         showDatePicker()
+
         textInput.text = habit.name
         textInput.textColor = habit.color
         colorButton.backgroundColor = habit.color
         
-        saveItem.tintColor = .purple
-        cancelItem.tintColor = .purple
+
     }
     
-    
+    //сохранение  изменений
     @objc func saveBarButton() {
+print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
         let newHabit = Habit(name: textInput.text!,
                              date: datePicker.date,
                              color: colorButton.backgroundColor!)
@@ -257,11 +287,29 @@ class CorrectHabitViewController: UIViewController {
         if let index = HabitsStore.shared.habits.firstIndex(where: { $0 == self.habit }) {
             HabitsStore.shared.habits[index] = newHabit
         }
-        
+
         dismiss(animated: true) { [weak self] in
             print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
-            print(self?.delegateCorrectVC?.callFromCorrectToDetail())
+            print(self?.delegateCorrectVC?.callFromCorrectToDetail() as Any)
             self?.delegateCorrectVC?.callFromCorrectToDetail()
+        }
+    }
+
+    //создание новой привычки
+    @objc func saveBarButtonForCreateNewHabit() {
+        print(#function)
+        print("СОЗДАНИЕ ННОВОЙ ПРИВЫЧКИ")
+        let newHabit = Habit(name: textInput.text!,
+                             date: datePicker.date,
+                             color: colorButton.backgroundColor!)
+        let store = HabitsStore.shared
+        store.habits.append(newHabit)
+        reloadInputViews()
+
+        dismiss(animated: true) { [weak self] in
+            print( "self?.delegate1?.updCollection()")
+            print( self?.delegate1?.updCollection() as Any)
+            self?.delegate1?.updCollection()
         }
     }
     

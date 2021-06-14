@@ -5,6 +5,13 @@
 //  Created by Apple on 08.05.2021.
 //
 
+
+protocol TestDelegate: class {
+    func updCollection()
+}
+
+
+/*
 import UIKit
 
 protocol TestDelegate: class {
@@ -188,7 +195,8 @@ class HabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+
         view.backgroundColor = .white
         setupViews()
         showDatePicker()
@@ -251,3 +259,4 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
     }
 }
 
+*/

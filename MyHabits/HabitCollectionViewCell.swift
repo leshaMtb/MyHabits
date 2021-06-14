@@ -21,14 +21,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             colorButtton1.layer.borderColor = habit?.color.cgColor
             habitNameLabel.textColor = habit?.color
             daysLabel.text = ("Подряд: \(habit!.trackDates.count)")
-            
-            /*
-            print("------------")
-            print(habit?.name)
-            print(habit?.color.cgColor)
-            print(habit?.isAlreadyTakenToday)
-            print("------------")
-            */
         }
     }
     

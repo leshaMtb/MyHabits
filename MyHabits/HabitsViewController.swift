@@ -17,8 +17,6 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       // title = "Привычки"
-       tabBarItem.image = UIImage(systemName: "house")
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
@@ -52,16 +50,18 @@ class HabitsViewController: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         collectionView.backgroundColor = .systemGray6
-        //navigationItem.backButtonTitle.tin
     }
     
     
     @objc func modalyShowHabitVC (){
-        //здесь создаем обьект класса HabitViewController, презентуем именно его и именно его заставляем быть делегатом
-        let habitVcForModallyPresent = HabitViewController()
-        present(habitVcForModallyPresent, animated: true)
-        habitVcForModallyPresent.delegate1 = self
-        
+
+      // let emptyHabit: Habit = Habit(name: "Новая привычка", date: Date(timeIntervalSinceNow: 0), color: .orange)
+
+        let correctVcForCreateNewHabit = CorrectHabitViewController(habit: Habit(name: "Новая привычка", date: Date(timeIntervalSinceNow: 0), color: .orange), openForCreateNewHabit: true)
+
+        correctVcForCreateNewHabit.delegate1 = self
+
+        present(correctVcForCreateNewHabit, animated: true)
     }
     
 }
