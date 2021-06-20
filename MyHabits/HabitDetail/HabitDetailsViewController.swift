@@ -49,7 +49,10 @@ class HabitDetailsViewController: UIViewController {
         title = habit.name
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(correctHabit))
-       
+        navigationItem.rightBarButtonItem?.tintColor = .purple
+
+        //как покрасить эту кнопку в фиолетовый?)
+        navigationItem.leftBarButtonItem?.tintColor = .purple
         
         view.addSubview(habitDetailTableView)
         NSLayoutConstraint.activate([
