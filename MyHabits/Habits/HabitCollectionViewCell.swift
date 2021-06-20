@@ -7,13 +7,10 @@
 
 import UIKit
 
-
-
 class HabitCollectionViewCell: UICollectionViewCell {
     
-    var delegateHabitCell: TestDelegate?
-    
-    
+    weak var delegateHabitCell: TestDelegate?
+
     var habit: Habit? {
         didSet{
             habitNameLabel.text = habit?.name

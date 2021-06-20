@@ -11,6 +11,7 @@ class HabitDetailViewCell: UITableViewCell {
     
     var trackedDay: UILabel = {
         var day = UILabel()
+        day.font = UIFont.systemFont(ofSize: 22)
         day.translatesAutoresizingMaskIntoConstraints = false
         return day
     }()
@@ -18,6 +19,7 @@ class HabitDetailViewCell: UITableViewCell {
     
     var checkMark: UILabel = {
         var check = UILabel()
+        check.font = UIFont.systemFont(ofSize: 22)
         check.translatesAutoresizingMaskIntoConstraints = false
         check.text = "✓"
         check.textColor = .purple
@@ -33,13 +35,13 @@ class HabitDetailViewCell: UITableViewCell {
         let constraints = [
             trackedDay.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
             trackedDay.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            trackedDay.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            trackedDay.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            trackedDay.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            trackedDay.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
             checkMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
             checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            checkMark.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28),
-            checkMark.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            checkMark.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            checkMark.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ]
         NSLayoutConstraint.activate(constraints)
     }

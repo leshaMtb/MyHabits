@@ -7,15 +7,11 @@
 
 import UIKit
 
-protocol ProtocolForCallFromCorrectToDetail {
-    func callFromCorrectToDetail()
-}
 
 
 class HabitDetailsViewController: UIViewController {
-    
-   
-    var callFromDetailToHabits: TestDelegate?
+
+    weak var callFromDetailToHabits: TestDelegate?
     
     private lazy var habitDetailTableView: UITableView = {
         let habitDetailTableView = UITableView(frame: .zero, style: .grouped)
@@ -26,8 +22,7 @@ class HabitDetailsViewController: UIViewController {
         habitDetailTableView.dataSource = self
         return habitDetailTableView
     }()
-    
-    
+
     private lazy var correctHabitVC = CorrectHabitViewController(habit: habit, openForCreateNewHabit: false)
 
     let habit: Habit
@@ -48,7 +43,7 @@ class HabitDetailsViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         correctHabitVC.delegateCorrectVC = self
-        
+       
         view.backgroundColor = .systemGray6
         habitDetailTableView.backgroundColor = .systemGray6
         title = habit.name
@@ -63,27 +58,24 @@ class HabitDetailsViewController: UIViewController {
             habitDetailTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             habitDetailTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-       // navigationItem.rightBarButtonItem?.tintColor = .purple
+
     }
-    
-    
-   
-    
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        title = habit.name
+
+    }
+
     @objc func correctHabit() {
         navigationController?.present(correctHabitVC, animated: true, completion: nil)
     }
-    
 }
-
 
 extension HabitDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
 }
-
 
 extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -94,8 +86,6 @@ extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: HabitDetailViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HabitDetailViewCell.self)) as! HabitDetailViewCell
-//let cell = HabitDetailViewCell()
-
 
         cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: HabitsStore.shared.dates.count - 1 - indexPath.item)
         
@@ -109,13 +99,15 @@ extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return HabitDetailHeader()
     }
-    
-    
 }
 
 extension HabitDetailsViewController: ProtocolForCallFromCorrectToDetail {
     
     func callFromCorrectToDetail() {
+
+        dismiss(animated: true) {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
         //нажатие кнопки "сохранить" в корректе теперь звонит сюда
         print("Позвонили из корректа в детэйл, дальше звоним в хэбитс")
         self.callFromDetailToHabits?.updCollection()

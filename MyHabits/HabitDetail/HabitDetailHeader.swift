@@ -19,7 +19,7 @@ class HabitDetailHeader: UITableViewHeaderFooterView {
     let habitActivityLabel: UILabel = {
         let activity = UILabel()
         activity.translatesAutoresizingMaskIntoConstraints = false
-        activity.text = "ИСТОРИЯ АКТИВНОСТИ"
+        activity.text = "АКТИВНОСТЬ"
         activity.font = .systemFont(ofSize: 13)
         activity.textColor = .darkGray
         return activity

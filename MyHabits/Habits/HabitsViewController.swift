@@ -17,11 +17,9 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
-        
-        // Удалить все привычки
+
         // HabitsStore.shared.habits.removeAll()
         
         self.navigationItem.title = "Сегодня"
@@ -55,9 +53,7 @@ class HabitsViewController: UIViewController {
     
     @objc func modalyShowHabitVC (){
 
-      // let emptyHabit: Habit = Habit(name: "Новая привычка", date: Date(timeIntervalSinceNow: 0), color: .orange)
-
-        let correctVcForCreateNewHabit = CorrectHabitViewController(habit: Habit(name: "Новая привычка", date: Date(timeIntervalSinceNow: 0), color: .orange), openForCreateNewHabit: true)
+        let correctVcForCreateNewHabit = CorrectHabitViewController(habit: Habit(name: "", date: Date(timeIntervalSinceNow: 0), color: .orange), openForCreateNewHabit: true)
 
         correctVcForCreateNewHabit.delegate1 = self
 
@@ -104,15 +100,13 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
             
         }
     }
-    
-    
+
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
 }
-
-
 
 
 extension HabitsViewController: UICollectionViewDataSource {
@@ -138,7 +132,6 @@ extension HabitsViewController: UICollectionViewDataSource {
             
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
-            //выставил деелгат в cellforitem
             cell.delegateHabitCell = self
             cell.habit = HabitsStore.shared.habits[indexPath.item]
             
@@ -155,8 +148,6 @@ extension HabitsViewController: UICollectionViewDataSource {
     }
 }
 
-
-// экстеншен для обновления коллекции
 extension HabitsViewController: TestDelegate {
     func updCollection() {
         collectionView.reloadData()

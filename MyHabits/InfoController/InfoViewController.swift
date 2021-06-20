@@ -76,6 +76,6 @@ class InfoViewController: UIViewController {
              
              habitInfo.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
              habitInfo.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-             habitInfo.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)])
+             habitInfo.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16)])
     }
 }

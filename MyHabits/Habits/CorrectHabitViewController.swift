@@ -12,8 +12,8 @@ class CorrectHabitViewController: UIViewController {
 
     weak var delegate1: TestDelegate?
 
-    var delegateCorrectVC: ProtocolForCallFromCorrectToDetail?
-    
+    weak var delegateCorrectVC: ProtocolForCallFromCorrectToDetail?
+
     let scrollView = UIScrollView()
     
     public var habit: Habit
@@ -31,7 +31,7 @@ class CorrectHabitViewController: UIViewController {
     }
     
     
-    
+
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,21 +78,20 @@ class CorrectHabitViewController: UIViewController {
     
     let dateText: UILabel = {
         let date = UILabel()
-        date.text =   "Каждый день в "
+        date.text =   "Каждый день в: "
         date.translatesAutoresizingMaskIntoConstraints = false
         date.font = .systemFont(ofSize: 13)
         date.textColor = .black
         return date
     }()
-    let txtDatePicker: UITextField = {
-        let txtdata = UITextField()
+    let time: UILabel = {
+        let txtdata = UILabel()
         txtdata.translatesAutoresizingMaskIntoConstraints = false
-        txtdata.textColor = .black
-        txtdata.placeholder = "00:00"
-        
+        txtdata.textColor = .purple
+        txtdata.text = "00:00"
         return txtdata
     }()
-    let datePicker = UIDatePicker()
+
     
     let deleteButton: UIButton = {
         let delete = UIButton(type: .system)
@@ -102,46 +101,34 @@ class CorrectHabitViewController: UIViewController {
         delete.addTarget(self, action: #selector(showAlert(_:)), for: .touchUpInside)
         return delete
     }()
-    
-  
-    func showDatePicker() {
-        datePicker.datePickerMode = .time
-        txtDatePicker.inputView = datePicker
-        datePicker.backgroundColor = .blue
-        datePicker.preferredDatePickerStyle = .wheels
-        let toolbar = UIToolbar();
-        toolbar.sizeToFit()
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(doDatePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelDatePicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-        
-        txtDatePicker.inputAccessoryView = toolbar
-        txtDatePicker.inputView = datePicker
-        
-        cancelButton.tintColor = .purple
-        doneButton.tintColor = .purple
-    }
-    
-    
-    @objc func doDatePicker(){
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        formatter.locale = Locale(identifier: "ru_RU")
-        txtDatePicker.text = formatter.string(from: datePicker.date)
-        self.view.endEditing(true)
-    }
-    
 
-    @objc func cancelDatePicker(){
-        self.view.endEditing(true)
-    }
-    
-    
-    @objc func showAlert(_ sender: Any) {
+
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm a"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+
+        return dateFormatter
+    }()
+
+
+    private let datePicker: UIDatePicker = {
+        let newHabitTimeDatePicker = UIDatePicker()
+        newHabitTimeDatePicker.datePickerMode = .time
+        newHabitTimeDatePicker.preferredDatePickerStyle = .wheels
         
+
+        newHabitTimeDatePicker.addTarget(self, action: #selector(dateHasBeenChenged), for: .valueChanged)
+
+        return newHabitTimeDatePicker
+    }()
+
+    
+    @objc func dateHasBeenChenged(sender: UIDatePicker) {
+        time.text = dateFormatter.string(from: sender.date)
+    }
+
+    @objc func showAlert(_ sender: Any) {
         let alertController = UIAlertController(title: "Удалить привычку?", message: "Вы хотите удалить привычку \(habit.name)?", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .default) { _ in
@@ -173,48 +160,53 @@ class CorrectHabitViewController: UIViewController {
         scrollView.addSubview(colorButton)
         scrollView.addSubview(timeLabel)
         scrollView.addSubview(dateText)
-        scrollView.addSubview(txtDatePicker)
+        scrollView.addSubview(time)
+        scrollView.addSubview(datePicker)
         scrollView.addSubview(deleteButton)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let constraints = [
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
+
             nameLabel.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor, constant: 66),
             nameLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             nameLabel.bottomAnchor.constraint(equalTo: textInput.topAnchor, constant: -7),
             nameLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            
+
             textInput.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            textInput.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            textInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             textInput.bottomAnchor.constraint(equalTo: colorLabel.topAnchor, constant: -15),
-            
+
             colorLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             colorLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            
+
             colorButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 7),
             colorButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             colorButton.widthAnchor.constraint(equalToConstant: 30),
             colorButton.heightAnchor.constraint(equalToConstant: 30),
-            
+
             timeLabel.topAnchor.constraint(equalTo: colorButton.bottomAnchor, constant: 15),
             timeLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             timeLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             timeLabel.heightAnchor.constraint(equalToConstant: 30),
-            
+
             dateText.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 7),
             dateText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            dateText.trailingAnchor.constraint(equalTo: txtDatePicker.leadingAnchor, constant: -10),
+            dateText.trailingAnchor.constraint(equalTo: time.leadingAnchor, constant: -10),
             dateText.widthAnchor.constraint(equalToConstant: 100),
             dateText.heightAnchor.constraint(equalToConstant: 30),
-            
-            txtDatePicker.heightAnchor.constraint(equalToConstant: 30),
-            txtDatePicker.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            txtDatePicker.topAnchor.constraint(equalTo: dateText.topAnchor),
-            
+
+            time.heightAnchor.constraint(equalToConstant: 30),
+            time.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            time.topAnchor.constraint(equalTo: dateText.topAnchor),
+
+            datePicker.topAnchor.constraint(equalTo: time.bottomAnchor, constant: 15),
+            datePicker.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            datePicker.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+
             deleteButton.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             deleteButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
         ]
@@ -226,16 +218,14 @@ class CorrectHabitViewController: UIViewController {
         print(#function)
         let picker = UIColorPickerViewController()
         self.present(picker, animated: true, completion: nil)
-        picker.selectedColor = colorButton.backgroundColor!
+        colorButton.backgroundColor! = picker.selectedColor
+        colorButton.backgroundColor = picker.selectedColor
         picker.delegate = self
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(openForCreateNewHabit)
-
 
         scrollView.backgroundColor = .white
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
@@ -254,32 +244,30 @@ class CorrectHabitViewController: UIViewController {
             navBar.setItems([navItem], animated: false)
             cancelItem.tintColor = .purple
 
+            textInput.placeholder = "Новая привычка"
+
         } else {
 
             let navItem = UINavigationItem(title: "Править")
-            let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButton))
+            let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButtonForChanges))
             navItem.rightBarButtonItem = saveItem
             saveItem.tintColor = .purple
             let cancelItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancelBarButton))
             navItem.leftBarButtonItem = cancelItem
             navBar.setItems([navItem], animated: false)
             cancelItem.tintColor = .purple
+
+            time.text = dateFormatter.string(from: habit.date)
         }
-
-
         setupViews()
-        showDatePicker()
-
         textInput.text = habit.name
         textInput.textColor = habit.color
         colorButton.backgroundColor = habit.color
-        
-
     }
-    
-    //сохранение  изменений
-    @objc func saveBarButton() {
-print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
+
+
+    @objc func saveBarButtonForChanges() {
+        print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
         let newHabit = Habit(name: textInput.text!,
                              date: datePicker.date,
                              color: colorButton.backgroundColor!)
@@ -287,20 +275,19 @@ print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
         if let index = HabitsStore.shared.habits.firstIndex(where: { $0 == self.habit }) {
             HabitsStore.shared.habits[index] = newHabit
         }
-
         dismiss(animated: true) { [weak self] in
             print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
             print(self?.delegateCorrectVC?.callFromCorrectToDetail() as Any)
             self?.delegateCorrectVC?.callFromCorrectToDetail()
         }
+
     }
 
-    //создание новой привычки
     @objc func saveBarButtonForCreateNewHabit() {
         print(#function)
         print("СОЗДАНИЕ ННОВОЙ ПРИВЫЧКИ")
         let newHabit = Habit(name: textInput.text!,
-                             date: datePicker.date,
+                             date:  datePicker.date,
                              color: colorButton.backgroundColor!)
         let store = HabitsStore.shared
         store.habits.append(newHabit)
@@ -310,7 +297,9 @@ print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
             print( "self?.delegate1?.updCollection()")
             print( self?.delegate1?.updCollection() as Any)
             self?.delegate1?.updCollection()
+            self?.navigationController?.pushViewController(HabitsViewController(), animated: true)
         }
+
     }
     
     
@@ -320,9 +309,9 @@ print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
     }
 }
 
-
 extension CorrectHabitViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         colorButton.backgroundColor = viewController.selectedColor
+        textInput.textColor = viewController.selectedColor
     }
 }
