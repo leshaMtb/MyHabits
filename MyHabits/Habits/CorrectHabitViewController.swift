@@ -275,11 +275,12 @@ class CorrectHabitViewController: UIViewController {
         if let index = HabitsStore.shared.habits.firstIndex(where: { $0 == self.habit }) {
             HabitsStore.shared.habits[index] = newHabit
         }
+        delegateCorrectVC?.updateTitle(newTitle: newHabit.name)
+
         dismiss(animated: true) { [weak self] in
             print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
             print(self?.delegateCorrectVC?.callFromCorrectToDetail() as Any)
             self?.delegateCorrectVC?.callFromCorrectToDetail()
-            
         }
 
     }

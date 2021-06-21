@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Darwin
 
 
 
@@ -52,12 +53,12 @@ class HabitDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-            // print("\(myTitle) это мой тайтл")
+        // print("\(myTitle) это мой тайтл")
         
         navigationItem.largeTitleDisplayMode = .never
         
         correctHabitVC.delegateCorrectVC = self
-       
+
         view.backgroundColor = .systemGray6
         habitDetailTableView.backgroundColor = .systemGray6
         title = myTitle
@@ -117,19 +118,18 @@ extension HabitDetailsViewController: UITableViewDataSource {
     }
 }
 
+
 extension HabitDetailsViewController: ProtocolForCallFromCorrectToDetail {
-    
+    func updateTitle(newTitle: String) {
+        title = newTitle
+    }
+
     func callFromCorrectToDetail() {
 
         print("эта функция выполняется по нажатию на кнопку сохранить")
-        //не работающее что-то
-        title = "laalalalala"
-
         dismiss(animated: true) {
             self.navigationController?.popToRootViewController(animated: true)
         }
         self.callFromDetailToHabits?.updCollection()
     }
-
-
 }

@@ -12,4 +12,5 @@ protocol TestDelegate: class {
 
 protocol ProtocolForCallFromCorrectToDetail: class {
     func callFromCorrectToDetail()
+    func updateTitle(newTitle: String) 
 }
