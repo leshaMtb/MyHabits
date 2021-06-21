@@ -15,6 +15,4 @@ class RootTabBarController: UITabBarController {
         tabBar.tintColor = .purple
 
     }
-
-
 }

@@ -16,11 +16,10 @@ class HabitsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
-        //navigationController?.navigationBar.tintColor = UIColor.init(named: "white")
-
+        
         // HabitsStore.shared.habits.removeAll()
         
         self.navigationItem.title = "Сегодня"
@@ -44,20 +43,20 @@ class HabitsViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItem?.tintColor = .purple
-
         
-
+        
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         collectionView.backgroundColor = .systemGray6
     }
     
     
     @objc func modalyShowHabitVC (){
-
+        
         let correctVcForCreateNewHabit = CorrectHabitViewController(habit: Habit(name: "", date: Date(timeIntervalSinceNow: 0), color: .orange), openForCreateNewHabit: true)
-
+        
         correctVcForCreateNewHabit.delegate1 = self
-
+        
         present(correctVcForCreateNewHabit, animated: true)
     }
     
@@ -96,14 +95,13 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
             
             if habitDetailsViewController != nil {
                 navigationController?.pushViewController(habitDetailsViewController!, animated: true)
-                habitDetailsViewController?.myTitle = habit.name
                 habitDetailsViewController!.callFromDetailToHabits = self
             }
             
         }
     }
-
-
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }

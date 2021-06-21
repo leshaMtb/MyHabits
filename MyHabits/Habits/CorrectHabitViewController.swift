@@ -9,15 +9,15 @@ import UIKit
 
 
 class CorrectHabitViewController: UIViewController {
-
+    
     weak var delegate1: TestDelegate?
-
+    
     weak var delegateCorrectVC: ProtocolForCallFromCorrectToDetail?
-
+    
     let scrollView = UIScrollView()
     
     public var habit: Habit
-
+    
     public var openForCreateNewHabit: Bool
     
     init(habit: Habit, openForCreateNewHabit: Bool) {
@@ -31,7 +31,7 @@ class CorrectHabitViewController: UIViewController {
     }
     
     
-
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +91,7 @@ class CorrectHabitViewController: UIViewController {
         txtdata.text = "00:00"
         return txtdata
     }()
-
+    
     
     let deleteButton: UIButton = {
         let delete = UIButton(type: .system)
@@ -101,33 +101,33 @@ class CorrectHabitViewController: UIViewController {
         delete.addTarget(self, action: #selector(showAlert(_:)), for: .touchUpInside)
         return delete
     }()
-
-
+    
+    
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm a"
         dateFormatter.locale = Locale(identifier: "ru_RU")
-
+        
         return dateFormatter
     }()
-
-
+    
+    
     private let datePicker: UIDatePicker = {
         let newHabitTimeDatePicker = UIDatePicker()
         newHabitTimeDatePicker.datePickerMode = .time
         newHabitTimeDatePicker.preferredDatePickerStyle = .wheels
         
-
+        
         newHabitTimeDatePicker.addTarget(self, action: #selector(dateHasBeenChenged), for: .valueChanged)
-
+        
         return newHabitTimeDatePicker
     }()
-
+    
     
     @objc func dateHasBeenChenged(sender: UIDatePicker) {
         time.text = dateFormatter.string(from: sender.date)
     }
-
+    
     @objc func showAlert(_ sender: Any) {
         let alertController = UIAlertController(title: "Удалить привычку?", message: "Вы хотите удалить привычку \(habit.name)?", preferredStyle: .alert)
         
@@ -164,49 +164,49 @@ class CorrectHabitViewController: UIViewController {
         scrollView.addSubview(datePicker)
         scrollView.addSubview(deleteButton)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let constraints = [
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
+            
             nameLabel.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor, constant: 66),
             nameLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             nameLabel.bottomAnchor.constraint(equalTo: textInput.topAnchor, constant: -7),
             nameLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-
+            
             textInput.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             textInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             textInput.bottomAnchor.constraint(equalTo: colorLabel.topAnchor, constant: -15),
-
+            
             colorLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             colorLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-
+            
             colorButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 7),
             colorButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             colorButton.widthAnchor.constraint(equalToConstant: 30),
             colorButton.heightAnchor.constraint(equalToConstant: 30),
-
+            
             timeLabel.topAnchor.constraint(equalTo: colorButton.bottomAnchor, constant: 15),
             timeLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             timeLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             timeLabel.heightAnchor.constraint(equalToConstant: 30),
-
+            
             dateText.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 7),
             dateText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             dateText.trailingAnchor.constraint(equalTo: time.leadingAnchor, constant: -10),
             dateText.widthAnchor.constraint(equalToConstant: 100),
             dateText.heightAnchor.constraint(equalToConstant: 30),
-
+            
             time.heightAnchor.constraint(equalToConstant: 30),
             time.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             time.topAnchor.constraint(equalTo: dateText.topAnchor),
-
+            
             datePicker.topAnchor.constraint(equalTo: time.bottomAnchor, constant: 15),
             datePicker.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
             datePicker.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
-
+            
             deleteButton.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             deleteButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
         ]
@@ -226,14 +226,14 @@ class CorrectHabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         scrollView.backgroundColor = .white
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
         scrollView.addSubview(navBar)
-
-
+        
+        
         if openForCreateNewHabit == true {
-
+            
             let navItem = UINavigationItem(title: "Создать")
             let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButtonForCreateNewHabit))
             navItem.rightBarButtonItem = saveItem
@@ -243,11 +243,11 @@ class CorrectHabitViewController: UIViewController {
             navItem.leftBarButtonItem = cancelItem
             navBar.setItems([navItem], animated: false)
             cancelItem.tintColor = .purple
-
+            
             textInput.placeholder = "Новая привычка"
-
+            
         } else {
-
+            
             let navItem = UINavigationItem(title: "Править")
             let saveItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveBarButtonForChanges))
             navItem.rightBarButtonItem = saveItem
@@ -256,7 +256,7 @@ class CorrectHabitViewController: UIViewController {
             navItem.leftBarButtonItem = cancelItem
             navBar.setItems([navItem], animated: false)
             cancelItem.tintColor = .purple
-
+            
             time.text = dateFormatter.string(from: habit.date)
         }
         setupViews()
@@ -264,8 +264,8 @@ class CorrectHabitViewController: UIViewController {
         textInput.textColor = habit.color
         colorButton.backgroundColor = habit.color
     }
-
-
+    
+    
     @objc func saveBarButtonForChanges() {
         print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
         let newHabit = Habit(name: textInput.text!,
@@ -276,15 +276,15 @@ class CorrectHabitViewController: UIViewController {
             HabitsStore.shared.habits[index] = newHabit
         }
         delegateCorrectVC?.updateTitle(newTitle: newHabit.name)
-
+        
         dismiss(animated: true) { [weak self] in
             print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
             print(self?.delegateCorrectVC?.callFromCorrectToDetail() as Any)
             self?.delegateCorrectVC?.callFromCorrectToDetail()
         }
-
+        
     }
-
+    
     @objc func saveBarButtonForCreateNewHabit() {
         print(#function)
         print("СОЗДАНИЕ ННОВОЙ ПРИВЫЧКИ")
@@ -294,14 +294,14 @@ class CorrectHabitViewController: UIViewController {
         let store = HabitsStore.shared
         store.habits.append(newHabit)
         reloadInputViews()
-
+        
         dismiss(animated: true) { [weak self] in
             print( "self?.delegate1?.updCollection()")
             print( self?.delegate1?.updCollection() as Any)
             self?.delegate1?.updCollection()
             self?.navigationController?.pushViewController(HabitsViewController(), animated: true)
         }
-
+        
     }
     
     

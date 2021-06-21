@@ -10,7 +10,7 @@ import UIKit
 class HabitCollectionViewCell: UICollectionViewCell {
     
     weak var delegateHabitCell: TestDelegate?
-
+    
     var habit: Habit? {
         didSet{
             habitNameLabel.text = habit?.name
@@ -21,7 +21,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         }
     }
     
-
+    
     var habitNameLabel: UILabel = {
         var habitNameLabel = UILabel()
         habitNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         return colorButtton1
     }()
     
-
+    
     @objc func trackHabit() {
         print(#function)
         

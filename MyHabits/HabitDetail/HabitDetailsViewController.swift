@@ -6,18 +6,12 @@
 //
 
 import UIKit
-import Darwin
-
-
 
 class HabitDetailsViewController: UIViewController {
 
     weak var callFromDetailToHabits: TestDelegate?
 
     let store: HabitsStore = .shared
-
-    var myTitle = ""
-
 
     private lazy var habitDetailTableView: UITableView = {
         let habitDetailTableView = UITableView(frame: .zero, style: .grouped)
@@ -42,33 +36,21 @@ class HabitDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        title = habit.name
-        habitDetailTableView.reloadData()
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // print("\(myTitle) это мой тайтл")
-        
+        navigationController?.navigationBar.tintColor = .purple
         navigationItem.largeTitleDisplayMode = .never
         
         correctHabitVC.delegateCorrectVC = self
 
         view.backgroundColor = .systemGray6
         habitDetailTableView.backgroundColor = .systemGray6
-        title = myTitle
+        title = habit.name
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(correctHabit))
         navigationItem.rightBarButtonItem?.tintColor = .purple
 
-        //как покрасить эту кнопку в фиолетовый?)
-        navigationItem.leftBarButtonItem?.tintColor = .purple
-        
         view.addSubview(habitDetailTableView)
         NSLayoutConstraint.activate([
             habitDetailTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -120,6 +102,7 @@ extension HabitDetailsViewController: UITableViewDataSource {
 
 
 extension HabitDetailsViewController: ProtocolForCallFromCorrectToDetail {
+    
     func updateTitle(newTitle: String) {
         title = newTitle
     }
