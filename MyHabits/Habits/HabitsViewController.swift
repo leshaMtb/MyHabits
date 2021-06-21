@@ -19,6 +19,7 @@ class HabitsViewController: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        //navigationController?.navigationBar.tintColor = UIColor.init(named: "white")
 
         // HabitsStore.shared.habits.removeAll()
         
@@ -95,6 +96,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
             
             if habitDetailsViewController != nil {
                 navigationController?.pushViewController(habitDetailsViewController!, animated: true)
+                habitDetailsViewController?.myTitle = habit.name
                 habitDetailsViewController!.callFromDetailToHabits = self
             }
             
@@ -153,7 +155,6 @@ extension HabitsViewController: TestDelegate {
         collectionView.reloadData()
         collectionView.reloadInputViews()
         print("Вызвался collectionView.reloadData()")
-        
     }
 }
 

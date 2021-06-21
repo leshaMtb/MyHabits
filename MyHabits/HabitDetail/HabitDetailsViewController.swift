@@ -12,7 +12,12 @@ import UIKit
 class HabitDetailsViewController: UIViewController {
 
     weak var callFromDetailToHabits: TestDelegate?
-    
+
+    let store: HabitsStore = .shared
+
+    var myTitle = ""
+
+
     private lazy var habitDetailTableView: UITableView = {
         let habitDetailTableView = UITableView(frame: .zero, style: .grouped)
         habitDetailTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +30,7 @@ class HabitDetailsViewController: UIViewController {
 
     private lazy var correctHabitVC = CorrectHabitViewController(habit: habit, openForCreateNewHabit: false)
 
-    let habit: Habit
+    var habit: Habit
     init(habit: Habit) {
         self.habit = habit
         super.init(nibName: nil, bundle: nil)
@@ -35,10 +40,19 @@ class HabitDetailsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = habit.name
+        habitDetailTableView.reloadData()
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+            // print("\(myTitle) это мой тайтл")
         
         navigationItem.largeTitleDisplayMode = .never
         
@@ -46,7 +60,7 @@ class HabitDetailsViewController: UIViewController {
        
         view.backgroundColor = .systemGray6
         habitDetailTableView.backgroundColor = .systemGray6
-        title = habit.name
+        title = myTitle
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(correctHabit))
         navigationItem.rightBarButtonItem?.tintColor = .purple
@@ -64,10 +78,7 @@ class HabitDetailsViewController: UIViewController {
 
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        title = habit.name
 
-    }
 
     @objc func correctHabit() {
         navigationController?.present(correctHabitVC, animated: true, completion: nil)
@@ -82,7 +93,7 @@ extension HabitDetailsViewController: UITableViewDelegate {
 
 extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HabitsStore.shared.dates.count
+        return store.dates.count
     }
     
     
@@ -91,9 +102,11 @@ extension HabitDetailsViewController: UITableViewDataSource {
         let cell: HabitDetailViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HabitDetailViewCell.self)) as! HabitDetailViewCell
 
         cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: HabitsStore.shared.dates.count - 1 - indexPath.item)
-        
+
         if HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[HabitsStore.shared.dates.count - 1 - indexPath.item]) == true {
             cell.checkMark.isHidden = false
+        } else {
+            cell.checkMark.isHidden = true
         }
         return cell
     }
@@ -108,11 +121,15 @@ extension HabitDetailsViewController: ProtocolForCallFromCorrectToDetail {
     
     func callFromCorrectToDetail() {
 
+        print("эта функция выполняется по нажатию на кнопку сохранить")
+        //не работающее что-то
+        title = "laalalalala"
+
         dismiss(animated: true) {
             self.navigationController?.popToRootViewController(animated: true)
         }
-        //нажатие кнопки "сохранить" в корректе теперь звонит сюда
-        print("Позвонили из корректа в детэйл, дальше звоним в хэбитс")
         self.callFromDetailToHabits?.updCollection()
     }
+
+
 }

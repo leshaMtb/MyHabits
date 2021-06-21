@@ -279,6 +279,7 @@ class CorrectHabitViewController: UIViewController {
             print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
             print(self?.delegateCorrectVC?.callFromCorrectToDetail() as Any)
             self?.delegateCorrectVC?.callFromCorrectToDetail()
+            
         }
 
     }
