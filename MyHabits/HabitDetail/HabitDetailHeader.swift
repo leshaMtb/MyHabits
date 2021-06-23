@@ -9,12 +9,7 @@ import UIKit
 
 
 class HabitDetailHeader: UITableViewHeaderFooterView {
-    
-    var titleLabel: String? {
-        didSet {
-            habitActivityLabel.text = titleLabel
-        }
-    }
+
     
     let habitActivityLabel: UILabel = {
         let activity = UILabel()
@@ -22,6 +17,7 @@ class HabitDetailHeader: UITableViewHeaderFooterView {
         activity.text = "АКТИВНОСТЬ"
         activity.font = .systemFont(ofSize: 13)
         activity.textColor = .darkGray
+        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
@@ -45,8 +41,6 @@ class HabitDetailHeader: UITableViewHeaderFooterView {
         let constraints = [
             habitActivityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             habitActivityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            habitActivityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            habitActivityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
         ]
         NSLayoutConstraint.activate(constraints)
     }

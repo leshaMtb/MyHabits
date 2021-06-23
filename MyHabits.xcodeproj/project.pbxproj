@@ -62,17 +62,18 @@
 				184195C52643E6430079AA90 /* HabitsViewController.swift */,
 				184637FD264BDE4A00B8082F /* HabitCollectionViewCell.swift */,
 				186A8DDC2652ED6400A8AA0C /* ProgressCollectionViewCell.swift */,
-				186A8DD926500D0400A8AA0C /* CorrectHabitViewController.swift */,
 			);
 			path = Habits;
 			sourceTree = "<group>";
 		};
-		183110AB267FD974008C8114 /* Store */ = {
+		183110AB267FD974008C8114 /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
 				184195C22643DC9F0079AA90 /* HabitsStore.swift */,
+				184195B1263FF76C0079AA90 /* LaunchScreen.storyboard */,
+				184195AF263FF76C0079AA90 /* Assets.xcassets */,
 			);
-			path = Store;
+			path = Resourses;
 			sourceTree = "<group>";
 		};
 		183110AC267FD9B1008C8114 /* Protocols */ = {
@@ -119,19 +120,26 @@
 		184195A5263FF76B0079AA90 /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
-				184195A6263FF76B0079AA90 /* AppDelegate.swift */,
-				184195A8263FF76B0079AA90 /* SceneDelegate.swift */,
+				1889BCD826839532005A6A96 /* Application */,
 				183110AE267FD9FC008C8114 /* Navigation */,
 				183110AA267FD90C008C8114 /* Habits */,
 				188CC06E264E9EBE00ECFECE /* HabitDetail */,
-				183110AB267FD974008C8114 /* Store */,
+				18BCBF3D268398FA006DFB74 /* CorrectHabit */,
 				183110AD267FD9D1008C8114 /* InfoController */,
 				183110AC267FD9B1008C8114 /* Protocols */,
+				183110AB267FD974008C8114 /* Resourses */,
 				184195B4263FF76C0079AA90 /* Info.plist */,
-				184195AF263FF76C0079AA90 /* Assets.xcassets */,
-				184195B1263FF76C0079AA90 /* LaunchScreen.storyboard */,
 			);
 			path = MyHabits;
+			sourceTree = "<group>";
+		};
+		1889BCD826839532005A6A96 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				184195A6263FF76B0079AA90 /* AppDelegate.swift */,
+				184195A8263FF76B0079AA90 /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		188CC06E264E9EBE00ECFECE /* HabitDetail */ = {
@@ -142,6 +150,14 @@
 				188CC076264E9F9500ECFECE /* HabitDetailViewCell.swift */,
 			);
 			path = HabitDetail;
+			sourceTree = "<group>";
+		};
+		18BCBF3D268398FA006DFB74 /* CorrectHabit */ = {
+			isa = PBXGroup;
+			children = (
+				186A8DD926500D0400A8AA0C /* CorrectHabitViewController.swift */,
+			);
+			path = CorrectHabit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

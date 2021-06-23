@@ -116,6 +116,7 @@ class CorrectHabitViewController: UIViewController {
         let newHabitTimeDatePicker = UIDatePicker()
         newHabitTimeDatePicker.datePickerMode = .time
         newHabitTimeDatePicker.preferredDatePickerStyle = .wheels
+       // newHabitTimeDatePicker.date
         
         
         newHabitTimeDatePicker.addTarget(self, action: #selector(dateHasBeenChenged), for: .valueChanged)
@@ -141,7 +142,8 @@ class CorrectHabitViewController: UIViewController {
             }
             
             self.dismiss(animated: true) { [weak self] in
-                self?.delegateCorrectVC?.callFromCorrectToDetail()
+                self?.delegateCorrectVC?.callFromCorrectToDetailPopToRoot()
+                self?.delegateCorrectVC?.updateHabitsCollection()
             }
         }
         alertController.addAction(cancelAction)
@@ -218,8 +220,11 @@ class CorrectHabitViewController: UIViewController {
         print(#function)
         let picker = UIColorPickerViewController()
         self.present(picker, animated: true, completion: nil)
-        colorButton.backgroundColor! = picker.selectedColor
+
+       // picker.selectedColor = .systemPink
+        picker.selectedColor = colorButton.backgroundColor!
         colorButton.backgroundColor = picker.selectedColor
+        
         picker.delegate = self
     }
     
@@ -243,7 +248,7 @@ class CorrectHabitViewController: UIViewController {
             navItem.leftBarButtonItem = cancelItem
             navBar.setItems([navItem], animated: false)
             cancelItem.tintColor = .purple
-            
+          //  datePicker.date = Date(timeIntervalSinceNow: 1000)
             textInput.placeholder = "Новая привычка"
             
         } else {
@@ -258,6 +263,9 @@ class CorrectHabitViewController: UIViewController {
             cancelItem.tintColor = .purple
             
             time.text = dateFormatter.string(from: habit.date)
+            datePicker.date = habit.date
+
+
         }
         setupViews()
         textInput.text = habit.name
@@ -265,29 +273,11 @@ class CorrectHabitViewController: UIViewController {
         colorButton.backgroundColor = habit.color
     }
     
-    
-    @objc func saveBarButtonForChanges() {
-        print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
-        let newHabit = Habit(name: textInput.text!,
-                             date: datePicker.date,
-                             color: colorButton.backgroundColor!)
-        reloadInputViews()
-        if let index = HabitsStore.shared.habits.firstIndex(where: { $0 == self.habit }) {
-            HabitsStore.shared.habits[index] = newHabit
-        }
-        delegateCorrectVC?.updateTitle(newTitle: newHabit.name)
-        
-        dismiss(animated: true) { [weak self] in
-            print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
-            print(self?.delegateCorrectVC?.callFromCorrectToDetail() as Any)
-            self?.delegateCorrectVC?.callFromCorrectToDetail()
-        }
-        
-    }
-    
+
     @objc func saveBarButtonForCreateNewHabit() {
         print(#function)
         print("СОЗДАНИЕ ННОВОЙ ПРИВЫЧКИ")
+
         let newHabit = Habit(name: textInput.text!,
                              date:  datePicker.date,
                              color: colorButton.backgroundColor!)
@@ -299,9 +289,29 @@ class CorrectHabitViewController: UIViewController {
             print( "self?.delegate1?.updCollection()")
             print( self?.delegate1?.updCollection() as Any)
             self?.delegate1?.updCollection()
-            self?.navigationController?.pushViewController(HabitsViewController(), animated: true)
+           // self?.navigationController?.pushViewController(HabitsViewController(), animated: true)
         }
         
+    }
+
+    @objc func saveBarButtonForChanges() {
+        print("ВНЕСЕНИЕ ИЗМЕНЕНИЙ")
+        reloadInputViews()
+       // store1.habits[habi]
+        habit.name = textInput.text!
+        habit.date = datePicker.date
+        habit.color = colorButton.backgroundColor!
+    
+        delegateCorrectVC?.updateTitle(newTitle: textInput.text!)
+        store1.save()
+        dismiss(animated: true) { [weak self] in
+           // print(" ЗВОНИМ self?.delegateCorrectVC?.callFromCorrectToDetail()")
+           // print(self?.delegateCorrectVC?.callFromCorrectToDetailPopToRoot() as Any)
+            self?.delegateCorrectVC?.updateHabitsCollection()
+
+            
+        }
+
     }
     
     
@@ -315,5 +325,6 @@ extension CorrectHabitViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         colorButton.backgroundColor = viewController.selectedColor
         textInput.textColor = viewController.selectedColor
+
     }
 }

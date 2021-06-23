@@ -7,11 +7,11 @@
 
 import UIKit
 
+let store1 = HabitsStore.shared
+
 class HabitDetailsViewController: UIViewController {
 
     weak var callFromDetailToHabits: TestDelegate?
-
-    let store: HabitsStore = .shared
 
     private lazy var habitDetailTableView: UITableView = {
         let habitDetailTableView = UITableView(frame: .zero, style: .grouped)
@@ -76,7 +76,7 @@ extension HabitDetailsViewController: UITableViewDelegate {
 
 extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.dates.count
+        return store1.dates.count
     }
     
     
@@ -84,9 +84,9 @@ extension HabitDetailsViewController: UITableViewDataSource {
         
         let cell: HabitDetailViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HabitDetailViewCell.self)) as! HabitDetailViewCell
 
-        cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: HabitsStore.shared.dates.count - 1 - indexPath.item)
+        cell.textLabel?.text = store1.trackDateString(forIndex: HabitsStore.shared.dates.count - 1 - indexPath.item)
 
-        if HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[HabitsStore.shared.dates.count - 1 - indexPath.item]) == true {
+        if store1.habit(habit, isTrackedIn: store1.dates[HabitsStore.shared.dates.count - 1 - indexPath.item]) == true {
             cell.checkMark.isHidden = false
         } else {
             cell.checkMark.isHidden = true
@@ -102,17 +102,20 @@ extension HabitDetailsViewController: UITableViewDataSource {
 
 
 extension HabitDetailsViewController: ProtocolForCallFromCorrectToDetail {
-    
+
+    func updateHabitsCollection() {
+        self.callFromDetailToHabits?.updCollection()
+    }
+
     func updateTitle(newTitle: String) {
         title = newTitle
     }
 
-    func callFromCorrectToDetail() {
+    func callFromCorrectToDetailPopToRoot() {
 
         print("эта функция выполняется по нажатию на кнопку сохранить")
         dismiss(animated: true) {
             self.navigationController?.popToRootViewController(animated: true)
         }
-        self.callFromDetailToHabits?.updCollection()
     }
 }

@@ -20,7 +20,7 @@ class HabitsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         
-        // HabitsStore.shared.habits.removeAll()
+       // HabitsStore.shared.habits.removeAll()
         
         self.navigationItem.title = "Сегодня"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(modalyShowHabitVC))
